@@ -22,7 +22,7 @@ const navLinks = [
   { href: '/statements', label: 'Statements' },
   { href: '/analytics', label: 'Analytics' },
   { href: '/reports', label: 'Reports' },
-  { href: '/gamification', label: 'Gamification' },
+  { href: '/gamification', label: 'Civic Score' },
 ];
 
 export function Header() {

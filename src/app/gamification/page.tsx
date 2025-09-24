@@ -15,7 +15,7 @@ export default function GamificationPage() {
     <div className="space-y-8">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-brand-deep-blue">Gamification & Rewards</h1>
+          <h1 className="text-2xl font-bold tracking-tight text-brand-deep-blue">Rewards</h1>
           <p className="text-muted-foreground">
             Your contributions to a more transparent India, recognized and rewarded.
           </p>

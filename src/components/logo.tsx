@@ -3,18 +3,18 @@ export function Logo() {
     <div className="flex items-center gap-3">
       <div className="w-9 h-9 rounded-full bg-gradient-to-b from-brand-saffron via-brand-white to-brand-green p-0.5 shadow-md">
         <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-            <svg className="w-5 h-5 text-brand-navy-blue" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"></circle>
-                <circle cx="12" cy="12" r="3"></circle>
-                <line x1="12" y1="2" x2="12" y2="6"></line>
-                <line x1="12" y1="18" x2="12" y2="22"></line>
-                <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
-                <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
-                <line x1="2" y1="12" x2="6" y2="12"></line>
-                <line x1="18" y1="12" x2="22" y2="12"></line>
-                <line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line>
-                <line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line>
-            </svg>
+          <svg className="w-5 h-5 text-brand-navy-blue" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2"/>
+            <circle cx="20" cy="20" r="4" fill="currentColor"/>
+            {[...Array(24)].map((_, i) => {
+              const angle = (i * 15 * Math.PI) / 180;
+              const x1 = 20 + 18 * Math.cos(angle);
+              const y1 = 20 + 18 * Math.sin(angle);
+              const x2 = 20 + 13 * Math.cos(angle);
+              const y2 = 20 + 13 * Math.sin(angle);
+              return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="1"/>;
+            })}
+          </svg>
         </div>
       </div>
       <div className="flex flex-col">
