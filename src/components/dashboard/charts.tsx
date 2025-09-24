@@ -34,6 +34,17 @@ export function DashboardCharts({ chartData }: ChartsProps) {
       return acc;
     }, {} as any);
   }, [chartData]);
+  
+  const completionTrendsConfig = {
+      completed: {
+        label: "Completed",
+        color: "hsl(var(--status-completed))",
+      },
+      total: {
+        label: "Total",
+        color: "hsl(var(--primary))",
+      },
+    };
 
 
   return (
@@ -72,17 +83,42 @@ export function DashboardCharts({ chartData }: ChartsProps) {
           <CardDescription>Monthly statement completion rate.</CardDescription>
         </CardHeader>
         <CardContent>
-           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={chartData?.completionTrends}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="month" />
-                <YAxis />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <ChartLegend />
-                <Line type="monotone" dataKey="completed" stroke="hsl(var(--status-completed))" activeDot={{ r: 8 }} name="Completed"/>
-                <Line type="monotone" dataKey="total" stroke="hsl(var(--primary))" name="Total"/>
+          <ChartContainer config={completionTrendsConfig} className="h-[300px] w-full">
+            <LineChart
+              accessibilityLayer
+              data={chartData?.completionTrends}
+              margin={{
+                left: 12,
+                right: 12,
+              }}
+            >
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="month"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+              />
+              <ChartTooltip
+                cursor={false}
+                content={<ChartTooltipContent indicator="line" />}
+              />
+              <Line
+                dataKey="completed"
+                type="natural"
+                stroke="hsl(var(--status-completed))"
+                strokeWidth={2}
+                dot={false}
+              />
+               <Line
+                dataKey="total"
+                type="natural"
+                stroke="hsl(var(--primary))"
+                strokeWidth={2}
+                dot={false}
+              />
             </LineChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         </CardContent>
       </Card>
     </>
