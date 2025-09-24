@@ -4,36 +4,34 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, CheckCircle, Clock, AlertTriangle, Share2, Edit, PlusCircle, FileText, Bell, AtSign, Phone } from "lucide-react";
+import { Calendar, CheckCircle, Clock, AlertTriangle, Share2, Edit, PlusCircle, FileText, Bell, AtSign, Phone, XCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import type { Priority, Status } from "@/types";
 import { cn } from "@/lib/utils";
 import { suggestStatementPriorities } from "@/ai/flows/suggest-statement-priorities";
 
-const priorityConfig: Record<Priority, { label: string; className: string }> = {
-  critical: { label: 'Critical', className: 'bg-status-critical text-white' },
-  high: { label: 'High', className: 'bg-orange-500 text-white' },
-  medium: { label: 'Medium', className: 'bg-yellow-500 text-black' },
-  low: { label: 'Low', className: 'bg-gray-400 text-white' },
-};
-
-const statusConfig: Record<Status, { label: string; icon: React.ReactNode; className: string }> = {
-  completed: { label: 'Completed', icon: <CheckCircle className="h-4 w-4" />, className: 'text-status-completed' },
-  in_progress: { label: 'In Progress', icon: <Clock className="h-4 w-4" />, className: 'text-status-in-progress' },
-  pending: { label: 'Pending', icon: <AlertTriangle className="h-4 w-4" />, className: 'text-status-pending' },
-  on_hold: { label: 'On Hold', icon: <Clock className="h-4 w-4" />, className: 'text-gray-500' },
-  cancelled: { label: 'Cancelled', icon: <XCircle className="h-4 w-4" />, className: 'text-gray-500' },
-};
-
 export default async function StatementDetailPage({ params }: { params: { id: string } }) {
-  // NOTE: The user prompt asked to use statement_001, but the mock data file only contains stmt-005.
-  // I will use stmt-005 and map the new fields to the existing UI. A more thorough refactor would be needed.
-  const statement = mockStatements.find(s => s.id === "stmt-005");
+  const statement = mockStatements.find(s => s.id === params.id);
 
   if (!statement) {
     notFound();
   }
   
+  const priorityConfig: Record<Priority, { label: string; className: string }> = {
+    critical: { label: 'Critical', className: 'bg-status-critical text-white' },
+    high: { label: 'High', className: 'bg-orange-500 text-white' },
+    medium: { label: 'Medium', className: 'bg-yellow-500 text-black' },
+    low: { label: 'Low', className: 'bg-gray-400 text-white' },
+  };
+
+  const statusConfig: Record<Status, { label: string; icon: React.ReactNode; className: string }> = {
+    completed: { label: 'Completed', icon: <CheckCircle className="h-4 w-4" />, className: 'text-status-completed' },
+    in_progress: { label: 'In Progress', icon: <Clock className="h-4 w-4" />, className: 'text-status-in-progress' },
+    pending: { label: 'Pending', icon: <AlertTriangle className="h-4 w-4" />, className: 'text-status-pending' },
+    on_hold: { label: 'On Hold', icon: <Clock className="h-4 w-4" />, className: 'text-gray-500' },
+    cancelled: { label: 'Cancelled', icon: <XCircle className="h-4 w-4" />, className: 'text-gray-500' },
+  };
+
   const daysSinceCreated = statement.timeline.dateCreated
     ? Math.floor((new Date().getTime() - new Date(statement.timeline.dateCreated).getTime()) / (1000 * 60 * 60 * 24))
     : 0;
