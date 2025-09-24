@@ -9,7 +9,7 @@ type StatsCardsProps = {
 export function StatsCards({ statements }: StatsCardsProps) {
   const totalStatements = statements.length;
   const completedThisMonth = statements.filter(s => s.status === 'completed' && s.dateCompleted && s.dateCompleted.getMonth() === new Date().getMonth()).length;
-  const highPriorityPending = statements.filter(s => s.priority === 'critical' && s.status === 'pending').length;
+  const highPriorityPending = statements.filter(s => s.priority === 'critical' && (s.status === 'pending' || s.status === 'in_progress')).length;
   
   // Dummy calculation for average completion time
   const completedStatements = statements.filter(s => s.status === 'completed' && s.dateCompleted);
@@ -41,7 +41,7 @@ export function StatsCards({ statements }: StatsCardsProps) {
       </Card>
       <Card className="border-l-4 border-status-pending">
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Critical Priority Pending</CardTitle>
+          <CardTitle className="text-sm font-medium">Critical Priority Items</CardTitle>
           <AlertTriangle className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
