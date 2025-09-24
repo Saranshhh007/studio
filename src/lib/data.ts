@@ -177,7 +177,7 @@ export const dashboardData: DashboardData = {
       { category: "Health", count: 1, color: "hsl(var(--status-in-progress))" },
       { category: "Environment", count: 1, color: "hsl(var(--status-completed))" },
       { category: "Education", count: 1, color: "hsl(var(--status-pending))" },
-      { category: "Technology", count: 1, color: "hsl(var(--primary))" }
+      { category: "Technology", count: 1, color: "hsl(var(--accent))" }
     ],
     
     completionTrends: [
@@ -534,5 +534,7 @@ export const mockUser: User = {
     },
   }
 };
+
+    
 
     
