@@ -44,6 +44,28 @@ export function AnalyticsCharts({ analytics }: ChartsProps) {
     return analytics.departmentPerformance.sort((a, b) => b.completionRate - a.completionRate);
   }, [analytics]);
 
+  const departmentPerformanceConfig = {
+    completionRate: {
+      label: "Completion Rate (%)",
+      color: "hsl(var(--status-completed))",
+    },
+  };
+  
+  const trendsOverTimeConfig = {
+    statementsAdded: {
+      label: "Statements Added",
+      color: "hsl(var(--primary))",
+    },
+    completed: {
+      label: "Statements Completed",
+      color: "hsl(var(--status-completed))",
+    },
+    userGrowth: {
+      label: "New Users",
+      color: "hsl(var(--accent))",
+    },
+  };
+
   return (
     <>
       <Card className="col-span-1 lg:col-span-2">
@@ -80,16 +102,16 @@ export function AnalyticsCharts({ analytics }: ChartsProps) {
           <CardDescription>Completion rate by ministry.</CardDescription>
         </CardHeader>
         <CardContent>
-           <ResponsiveContainer width="100%" height={300}>
-             <BarChart data={departmentPerformance} layout="vertical" margin={{ left: 100 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis type="number" />
-                <YAxis dataKey="department" type="category" width={150} tick={{fontSize: 12}}/>
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <ChartLegend />
-                <Bar dataKey="completionRate" fill="hsl(var(--status-completed))" name="Completion Rate (%)" radius={[0, 4, 4, 0]} />
+          <ChartContainer config={departmentPerformanceConfig} className="h-[300px] w-full">
+            <BarChart data={departmentPerformance} layout="vertical" margin={{ left: 100 }}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis type="number" />
+              <YAxis dataKey="department" type="category" width={150} tick={{fontSize: 12}}/>
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <ChartLegend />
+              <Bar dataKey="completionRate" fill="hsl(var(--status-completed))" name="Completion Rate (%)" radius={[0, 4, 4, 0]} />
             </BarChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         </CardContent>
       </Card>
       <Card className="col-span-full">
@@ -98,7 +120,7 @@ export function AnalyticsCharts({ analytics }: ChartsProps) {
           <CardDescription>Monthly statements and user growth.</CardDescription>
         </CardHeader>
         <CardContent>
-           <ResponsiveContainer width="100%" height={300}>
+           <ChartContainer config={trendsOverTimeConfig} className="h-[300px] w-full">
             <BarChart data={analytics.trendsOverTime}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
@@ -109,7 +131,7 @@ export function AnalyticsCharts({ analytics }: ChartsProps) {
                 <Bar dataKey="completed" fill="hsl(var(--status-completed))" name="Statements Completed" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="userGrowth" fill="hsl(var(--accent))" name="New Users" radius={[4, 4, 0, 0]} />
             </BarChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         </CardContent>
       </Card>
     </>
