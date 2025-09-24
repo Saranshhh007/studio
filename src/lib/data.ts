@@ -1,4 +1,4 @@
-import type { Statement, User, Official, DashboardData, AnalyticsData } from '@/types';
+import type { Statement, User, DashboardData, AnalyticsData } from '@/types';
 
 export const analyticsData: AnalyticsData = {
   period: "september_2025",
@@ -98,9 +98,9 @@ export const dashboardData: DashboardData = {
   userId: "himanshu_goyal_001",
   dashboardStats: {
     totalStatementsTracked: 5,
-    completedThisMonth: 1, // updated from 0 to show some activity
-    criticalPriorityPending: 1, // updated to match priorityStatements
-    averageCompletionTime: 375, // days
+    completedThisMonth: 1,
+    criticalPriorityItems: 1,
+    averageCompletionTime: 128,
     lastUpdated: "2025-09-24T06:30:00Z"
   },
   
@@ -192,147 +192,146 @@ export const dashboardData: DashboardData = {
 };
 
 
-const officials: Record<string, Official> = {
-  rajeshKumar: {
-    name: 'Shri Rajesh Kumar',
-    designation: 'Secretary',
-    ministry: 'Ministry of Electronics & IT',
-    photoUrl: 'https://picsum.photos/seed/101/100/100',
-  },
-  priyaSharma: {
-    name: 'Dr. Priya Sharma',
-    designation: 'Joint Secretary',
-    ministry: 'Ministry of Health',
-    photoUrl: 'https://picsum.photos/seed/102/100/100',
-  },
-  anitaVerma: {
-    name: 'Smt. Anita Verma',
-    designation: 'Director',
-    ministry: 'Ministry of Jal Shakti',
-    photoUrl: 'https://picsum.photos/seed/103/100/100',
-  },
-  sureshGupta: {
-    name: 'Prof. Suresh Gupta',
-    designation: 'Advisor',
-    ministry: 'Ministry of Education',
-    photoUrl: 'https://picsum.photos/seed/104/100/100',
-  },
-  vikashSingh: {
-    name: 'Shri Vikash Singh',
-    designation: 'Mission Director',
-    ministry: 'Ministry of New & Renewable Energy',
-    photoUrl: 'https://picsum.photos/seed/105/100/100',
-  },
-};
-
 export const mockStatements: Statement[] = [
   {
-    id: 'stmt-001',
-    title: 'Digital India Expansion',
-    content: 'Expand digital services to 500 million citizens by December 2024, focusing on rural and remote areas.',
-    official: officials.rajeshKumar,
-    department: 'Digital Infrastructure',
-    category: 'Technology',
-    priority: 'critical',
-    status: 'in_progress',
-    dateCreated: new Date('2023-01-15T09:00:00Z'),
-    datePromised: new Date('2024-12-31T23:59:59Z'),
-    dateCompleted: null,
+    id: "stmt-005",
+    title: "Solar Energy Program",
+    titleHindi: "सौर ऊर्जा कार्यक्रम",
+    content: "We will install solar panels in 1000 rural villages across Bihar by December 2024. This initiative will provide clean energy to over 500,000 families and create 2000 direct employment opportunities.",
+    contentHindi: "हम दिसंबर 2024 तक बिहार के 1000 ग्रामीण गांवों में सोलर पैनल लगाएंगे।",
+    official: {
+      name: "Shri Vikash Singh",
+      nameHindi: "श्री विकाश सिंह",
+      designation: "Minister",
+      designationHindi: "मंत्री",
+      ministry: "Ministry of New & Renewable Energy",
+      ministryHindi: "नवीन और नवीकरणीय ऊर्जा मंत्रालय",
+      photoUrl: "https://picsum.photos/seed/105/100/100",
+      contactEmail: "minister.nre@gov.in"
+    },
+    location: {
+      district: "Multiple Districts",
+      state: "Bihar", 
+      constituency: "State-wide",
+      geographicScope: "Rural Bihar",
+      targetVillages: 1000,
+      coordinates: {
+        lat: 25.0961,
+        lng: 85.3131
+      }
+    },
+    classification: {
+      department: "New & Renewable Energy",
+      category: "Energy & Environment",
+      subCategory: "Solar Power",
+      priority: "critical",
+      status: "in_progress",
+      tags: ["solar", "renewable", "rural", "employment", "clean energy"]
+    },
+    timeline: {
+      dateCreated: new Date("2024-01-10T00:00:00Z"),
+      dateAnnounced: new Date("2024-01-15T00:00:00Z"), 
+      datePromised: new Date("2024-12-31T23:59:59Z"),
+      dateStarted: new Date("2024-02-01T00:00:00Z"),
+      dateLastUpdated: new Date("2024-07-01T11:00:00Z"),
+      dateCompleted: null,
+      estimatedCompletion: new Date("2024-12-31T23:59:59Z")
+    },
+    progress: {
+      percentage: 60,
+      milestones: [
+        {
+          title: "Project Planning Complete",
+          date: new Date("2024-02-15T00:00:00Z"),
+          status: "completed",
+          description: "Site surveys and technical planning finished"
+        },
+        {
+          title: "First 300 Villages Connected", 
+          date: new Date("2024-05-30T00:00:00Z"),
+          status: "completed",
+          description: "Solar installation completed in first batch"
+        },
+        {
+          title: "600 Villages Target",
+          date: new Date("2024-09-30T00:00:00Z"), 
+          status: "in_progress",
+          description: "Currently working on second batch"
+        }
+      ]
+    },
+    budget: {
+      allocated: 50000000000,
+      spent: 30000000000,
+      currency: "INR",
+      budgetSource: "Central Government",
+      financialYear: "2024-25"
+    },
+    impact: {
+      beneficiaries: 500000,
+      beneficiaryType: "Families",
+      employmentCreated: 1200,
+      targetEmployment: 2000,
+      environmentalImpact: "Reduction of 50,000 tons CO2 annually",
+      economicImpact: "₹100 crore savings in electricity costs"
+    },
+    publicEngagement: {
+      views: 15420,
+      uniqueViews: 12330,
+      likes: 892,
+      dislikes: 45,
+      comments: 156,
+      bookmarks: 234,
+      shares: 67,
+      citizenRating: 4.2,
+      totalVotes: 445,
+      supportPercent: 85
+    },
     updates: [
-      { id: 'upd-1-1', content: 'Phase 1 launched, covering 100 districts.', author: 'Shri Rajesh Kumar', authorRole: 'official', timestamp: new Date('2024-06-20T14:30:00Z'), type: 'progress_update' },
-      { id: 'upd-1-2', content: 'Public feedback portal is now live.', author: 'Citizen Voice', authorRole: 'citizen', timestamp: new Date('2024-05-10T10:00:00Z'), type: 'progress_update' },
+      {
+        id: "update_001", 
+        content: "600 villages covered. Work is progressing at a good pace.",
+        contentHindi: "600 गांव कवर हो गए। काम अच्छी गति से प्रगति कर रहा है।",
+        author: {
+          name: "Shri Vikash Singh",
+          role: "official",
+          userId: "vikash_singh_official"
+        },
+        timestamp: new Date("2024-07-01T11:00:00Z"),
+        type: "progress_update",
+        attachments: [
+          {
+            type: "image",
+            url: "/images/updates/solar-progress-july.jpg",
+            caption: "Solar panel installation in Muzaffarpur village"
+          }
+        ],
+        metrics: {
+          villagesCompleted: 600,
+          panelsInstalled: 12000,
+          familiesBenefited: 300000
+        }
+      }
     ],
-    attachments: [],
-    tags: ['digital-india', 'rural-development', 'technology'],
-    geographicScope: 'National',
-    publicEngagement: { views: 15234, comments: 2356, bookmarks: 5123, citizenRating: 4.5 },
-    priorityHistory: [],
-  },
-  {
-    id: 'stmt-002',
-    title: 'Rural Healthcare Centers',
-    content: 'Establish 200 new primary healthcare centers in 18 months in underserved rural regions.',
-    official: officials.priyaSharma,
-    department: 'Healthcare Infrastructure',
-    category: 'Health',
-    priority: 'high',
-    status: 'in_progress',
-    dateCreated: new Date('2023-03-01T11:00:00Z'),
-    datePromised: new Date('2024-09-01T23:59:59Z'),
-    dateCompleted: null,
-    updates: [
-       { id: 'upd-2-1', content: 'Land acquisition completed for 50 centers.', author: 'Dr. Priya Sharma', authorRole: 'official', timestamp: new Date('2024-04-15T11:00:00Z'), type: 'progress_update' },
+    evidence: [
+      {
+        id: "evidence_001",
+        type: "photo",
+        url: "/images/evidence/solar-installation-patna.jpg",
+        uploadedBy: "himanshu_goyal_001",
+        uploadDate: new Date("2024-07-15T00:00:00Z"),
+        location: "Patna District",
+        description: "Solar panels installed in village school",
+        verified: true,
+        verifiedBy: "district_admin_patna",
+        verificationDate: new Date("2024-07-16T00:00:00Z")
+      }
     ],
-    attachments: [],
-    tags: ['healthcare', 'rural', 'infrastructure'],
-    geographicScope: 'National',
-    publicEngagement: { views: 8976, comments: 1245, bookmarks: 2345, citizenRating: 4.2 },
-    priorityHistory: [],
-  },
-  {
-    id: 'stmt-003',
-    title: 'Clean Water Initiative',
-    content: 'Provide clean and safe drinking water to 100 villages in the Bundelkhand region.',
-    official: officials.anitaVerma,
-    department: 'Water Resources',
-    category: 'Environment',
-    priority: 'medium',
-    status: 'completed',
-    dateCreated: new Date('2022-09-10T10:00:00Z'),
-    datePromised: new Date('2024-03-31T23:59:59Z'),
-    dateCompleted: new Date('2024-03-25T16:00:00Z'),
-    updates: [
-       { id: 'upd-3-1', content: 'Project completed ahead of schedule. All 100 villages now have access to clean water.', author: 'Smt. Anita Verma', authorRole: 'official', timestamp: new Date('2024-03-25T16:00:00Z'), type: 'status_change' },
-    ],
-    attachments: [],
-    tags: ['water', 'clean-energy', 'jal-shakti'],
-    geographicScope: 'Bundelkhand Region',
-    publicEngagement: { views: 25432, comments: 4876, bookmarks: 8765, citizenRating: 4.8 },
-    priorityHistory: [],
-  },
-  {
-    id: 'stmt-004',
-    title: 'Education Infrastructure',
-    content: 'Build 50 new schools in tribal areas to improve access to education.',
-    official: officials.sureshGupta,
-    department: 'School Education',
-    category: 'Education',
-    priority: 'high',
-    status: 'pending',
-    dateCreated: new Date('2023-08-20T12:00:00Z'),
-    datePromised: new Date('2025-06-30T23:59:59Z'),
-    dateCompleted: null,
-    updates: [
-       { id: 'upd-4-1', content: 'Budget allocated and tenders invited.', author: 'Admin', authorRole: 'admin', timestamp: new Date('2024-02-01T09:00:00Z'), type: 'progress_update' },
-    ],
-    attachments: [],
-    tags: ['education', 'tribal-development', 'schools'],
-    geographicScope: 'National Tribal Areas',
-    publicEngagement: { views: 4567, comments: 654, bookmarks: 1234, citizenRating: 4.0 },
-    priorityHistory: [],
-  },
-  {
-    id: 'stmt-005',
-    title: 'Solar Energy Program',
-    content: 'Install solar panels in 1000 rural villages to provide clean and reliable electricity.',
-    official: officials.vikashSingh,
-    department: 'Renewable Energy',
-    category: 'Energy',
-    priority: 'critical',
-    status: 'in_progress',
-    dateCreated: new Date('2022-11-01T09:00:00Z'),
-    datePromised: new Date('2024-12-31T23:59:59Z'),
-    dateCompleted: null,
-    updates: [
-      { id: 'upd-5-1', content: '600 villages covered. Work is progressing at a good pace.', author: 'Shri Vikash Singh', authorRole: 'official', timestamp: new Date('2024-07-01T11:00:00Z'), type: 'progress_update' },
-      { id: 'upd-5-2', content: 'The solar panels in my village are working great!', author: 'Ravi Verma', authorRole: 'citizen', timestamp: new Date('2024-06-15T18:00:00Z'), type: 'progress_update' },
-    ],
-    attachments: [],
-    tags: ['solar-energy', 'renewable', 'rural-electrification'],
-    geographicScope: 'National',
-    publicEngagement: { views: 19876, comments: 3456, bookmarks: 7890, citizenRating: 4.7 },
-    priorityHistory: [],
-  },
+    relatedStatements: [
+      "statement_002",
+      "statement_003"
+    ]
+  }
 ];
 
 export const mockUser: User = {

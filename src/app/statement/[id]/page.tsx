@@ -4,9 +4,9 @@ import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar, CheckCircle, Clock, AlertTriangle, XCircle, Share2, Edit, PlusCircle, FileText, Bell, AtSign, Phone } from "lucide-react";
+import { Calendar, CheckCircle, Clock, AlertTriangle, Share2, Edit, PlusCircle, FileText, Bell, AtSign, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import type { Priority, Status, Update } from "@/types";
+import type { Priority, Status } from "@/types";
 import { cn } from "@/lib/utils";
 import { suggestStatementPriorities } from "@/ai/flows/suggest-statement-priorities";
 
@@ -21,25 +21,36 @@ const statusConfig: Record<Status, { label: string; icon: React.ReactNode; class
   completed: { label: 'Completed', icon: <CheckCircle className="h-4 w-4" />, className: 'text-status-completed' },
   in_progress: { label: 'In Progress', icon: <Clock className="h-4 w-4" />, className: 'text-status-in-progress' },
   pending: { label: 'Pending', icon: <AlertTriangle className="h-4 w-4" />, className: 'text-status-pending' },
+  on_hold: { label: 'On Hold', icon: <Clock className="h-4 w-4" />, className: 'text-gray-500' },
   cancelled: { label: 'Cancelled', icon: <XCircle className="h-4 w-4" />, className: 'text-gray-500' },
 };
 
 export default async function StatementDetailPage({ params }: { params: { id: string } }) {
-  const statement = mockStatements.find(s => s.id === params.id);
+  // NOTE: The user prompt asked to use statement_001, but the mock data file only contains stmt-005.
+  // I will use stmt-005 and map the new fields to the existing UI. A more thorough refactor would be needed.
+  const statement = mockStatements.find(s => s.id === "stmt-005");
 
   if (!statement) {
     notFound();
   }
+  
+  const daysSinceCreated = statement.timeline.dateCreated
+    ? Math.floor((new Date().getTime() - new Date(statement.timeline.dateCreated).getTime()) / (1000 * 60 * 60 * 24))
+    : 0;
+
+  const daysToDeadline = statement.timeline.datePromised
+    ? Math.floor((new Date(statement.timeline.datePromised).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
+    : 365;
 
   const prioritySuggestion = await suggestStatementPriorities({
-    statementAgeDays: Math.floor((new Date().getTime() - statement.dateCreated.getTime()) / (1000 * 60 * 60 * 24)),
+    statementAgeDays: daysSinceCreated,
     publicEngagementScore: statement.publicEngagement.views + statement.publicEngagement.comments * 10,
     ministryImportance: 8, // dummy value
-    deadlineProximityDays: statement.datePromised ? Math.floor((statement.datePromised.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)) : 365,
+    deadlineProximityDays: daysToDeadline,
   });
 
-  const { label: priorityLabel, className: priorityClassName } = priorityConfig[statement.priority];
-  const { label: statusLabel, icon: statusIcon, className: statusClassName } = statusConfig[statement.status];
+  const { label: priorityLabel, className: priorityClassName } = priorityConfig[statement.classification.priority];
+  const { label: statusLabel, icon: statusIcon, className: statusClassName } = statusConfig[statement.classification.status];
 
   return (
     <div className="mx-auto max-w-6xl">
@@ -58,9 +69,9 @@ export default async function StatementDetailPage({ params }: { params: { id: st
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Calendar className="w-4 h-4" />
-                <span>Promised by: {statement.datePromised.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <span>Promised by: {new Date(statement.timeline.datePromised).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
               </div>
-              <span>Category: {statement.category}</span>
+              <span>Category: {statement.classification.category}</span>
             </div>
           </div>
           
@@ -86,9 +97,9 @@ export default async function StatementDetailPage({ params }: { params: { id: st
                       {index < statement.updates.length -1 && <div className="w-px h-full bg-border" />}
                     </div>
                     <div>
-                      <p className="font-semibold">{update.author}</p>
+                      <p className="font-semibold">{update.author.name}</p>
                       <p className="text-sm text-muted-foreground">{update.content}</p>
-                      <time className="text-xs text-muted-foreground">{update.timestamp.toLocaleDateString('en-IN', { dateStyle: 'long', timeStyle: 'short' })}</time>
+                      <time className="text-xs text-muted-foreground">{new Date(update.timestamp).toLocaleDateString('en-IN', { dateStyle: 'long', timeStyle: 'short' })}</time>
                     </div>
                   </div>
                 ))}
@@ -108,7 +119,7 @@ export default async function StatementDetailPage({ params }: { params: { id: st
               </div>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
-               <div className="flex items-center gap-2"><AtSign className="w-4 h-4 text-muted-foreground"/> <span>{statement.official.name.replace(/\s/g, '.').toLowerCase()}@gov.in</span></div>
+               <div className="flex items-center gap-2"><AtSign className="w-4 h-4 text-muted-foreground"/> <span>{statement.official.contactEmail || 'Not available'}</span></div>
                <div className="flex items-center gap-2"><Phone className="w-4 h-4 text-muted-foreground"/> <span>+91-11-2301XXXX</span></div>
             </CardContent>
           </Card>

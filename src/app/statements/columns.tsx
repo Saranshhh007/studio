@@ -30,12 +30,13 @@ const statusConfig: Record<Status, { label: string; labelHindi: string; classNam
     in_progress: { label: 'In Progress', labelHindi: 'प्रगतिशील', className: 'bg-status-in-progress/10 text-status-in-progress border-status-in-progress/20', icon: <Clock className="w-3 h-3" /> },
     pending: { label: 'Pending', labelHindi: 'लंबित', className: 'bg-status-pending/10 text-status-pending border-status-pending/20', icon: <AlertTriangle className="w-3 h-3" /> },
     cancelled: { label: 'Cancelled', labelHindi: 'रद्द', className: 'bg-gray-400/10 text-gray-500 border-gray-400/20', icon: <XCircle className="w-3 h-3" /> },
+    on_hold: { label: 'On Hold', labelHindi: 'रोका गया', className: 'bg-gray-400/10 text-gray-500 border-gray-400/20', icon: <Clock className="w-3 h-3" /> },
 };
 
 
 export const columns: ColumnDef<Statement>[] = [
   {
-    accessorKey: "priority",
+    accessorKey: "classification.priority",
     header: ({ column }) => {
       return (
         <Button
@@ -48,7 +49,7 @@ export const columns: ColumnDef<Statement>[] = [
       )
     },
     cell: ({ row }) => {
-      const priority = row.getValue("priority") as Priority
+      const priority = row.original.classification.priority
       const config = priorityConfig[priority]
       return <Badge variant="outline" className={cn("capitalize gap-1.5", config.className)}>{config.icon} {config.label}</Badge>
     },
@@ -86,11 +87,11 @@ export const columns: ColumnDef<Statement>[] = [
     },
   },
   {
-    accessorKey: "category",
+    accessorKey: "classification.category",
     header: "Category",
   },
   {
-    accessorKey: "dateCreated",
+    accessorKey: "timeline.dateCreated",
     header: ({ column }) => {
       return (
         <Button
@@ -103,15 +104,15 @@ export const columns: ColumnDef<Statement>[] = [
       )
     },
     cell: ({ row }) => {
-      const date = new Date(row.getValue("dateCreated"))
+      const date = new Date(row.original.timeline.dateCreated)
       return <div>{date.toLocaleDateString("en-IN")}</div>
     },
   },
   {
-    accessorKey: "status",
+    accessorKey: "classification.status",
     header: "Status",
     cell: ({ row }) => {
-      const status = row.getValue("status") as Status
+      const status = row.original.classification.status
       const config = statusConfig[status]
       return <Badge variant="outline" className={cn("capitalize gap-1.5", config.className)}>{config.icon} {config.label}</Badge>
     },

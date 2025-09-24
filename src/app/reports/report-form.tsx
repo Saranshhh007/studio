@@ -58,8 +58,8 @@ export function ReportForm() {
         title: s.title,
         officialName: s.official.name,
         ministry: s.official.ministry,
-        category: s.category,
-        status: s.status,
+        category: s.classification.category,
+        status: s.classification.status,
       }));
 
       const result = await generateReportSummaries({
