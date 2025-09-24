@@ -144,9 +144,36 @@ export const mockStatements: Statement[] = [
 ];
 
 export const mockUser: User = {
-  uid: 'user-123',
-  name: 'Anjali Sharma',
-  email: 'anjali.s@gov.in',
-  role: 'official',
-  avatarUrl: 'https://picsum.photos/seed/201/100/100',
+  uid: 'himanshu_goyal_001',
+  name: 'Himanshu Goyal',
+  email: 'himanshu.goyal@gmail.com',
+  role: 'citizen',
+  avatarUrl: 'https://picsum.photos/seed/himanshu/100/100',
+  gamification: {
+    userId: 'himanshu_goyal_001',
+    profile: {
+      name: 'Himanshu Goyal',
+      district: 'Patna',
+      state: 'Bihar',
+      civicLevel: 'Democracy Defender',
+      totalPoints: 2850,
+      currentBadges: [
+        { name: 'Jagruk Nagrik', icon: '👁️', description: '' },
+        { name: 'Truth Seeker', icon: '🔍', description: '' },
+        { name: 'Voice of Bihar', icon: '📢', description: '' },
+      ],
+      achievements: [
+        { name: 'First Comment', description: 'Made your first comment', pointsEarned: 50, dateEarned: '2024-01-20' },
+        { name: 'Evidence Provider', description: 'Uploaded first evidence', pointsEarned: 100, dateEarned: '2024-02-05' },
+      ],
+      avatarUrl: 'https://picsum.photos/seed/himanshu/100/100',
+    },
+    activities: {
+      statementsTracked: 45,
+      commentsPosted: 23,
+      evidenceUploaded: 8,
+      reportsGenerated: 5,
+      referralsComplete: 3,
+    },
+  }
 };

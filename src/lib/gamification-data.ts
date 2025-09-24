@@ -26,34 +26,50 @@ export const badges: Record<string, BadgeInfo> = {
     icon: "🐅",
     description: "Top contributor in Bihar state for transparency",
   },
+  truthSeeker: {
+    name: "Truth Seeker",
+    icon: "🔍",
+    description: "Fact-checked 10 statements.",
+  },
+  voiceOfBihar: {
+    name: "Voice of Bihar",
+    icon: "📢",
+    description: "Posted 25 constructive comments.",
+  },
 };
 
 
 export const mockUser: UserGamification = {
-  userId: "user-123",
+  userId: "himanshu_goyal_001",
   profile: {
-    name: "Anjali Sharma",
+    name: "Himanshu Goyal",
     district: "Patna",
     state: "Bihar",
-    civicLevel: "Democracy Champion",
+    civicLevel: "Democracy Defender",
     totalPoints: 2850,
-    currentBadges: [badges.jagrukNagrik, badges.gramSevak, badges.digitalBharatWarrior],
+    currentBadges: [badges.jagrukNagrik, badges.truthSeeker, badges.voiceOfBihar],
     achievements: [
       {
         name: "First Comment",
         description: "Made your first comment on a government statement",
         pointsEarned: 50,
         dateEarned: "2024-01-20"
+      },
+      {
+        name: "Evidence Provider",
+        description: "Uploaded first photo evidence for a statement",
+        pointsEarned: 100,
+        dateEarned: "2024-02-05T00:00:00Z"
       }
     ],
-    avatarUrl: 'https://picsum.photos/seed/201/100/100',
+    avatarUrl: 'https://picsum.photos/seed/himanshu/100/100',
   },
   activities: {
     statementsTracked: 45,
     commentsPosted: 23,
     evidenceUploaded: 8,
     reportsGenerated: 5,
-    referralsComplete: 12
+    referralsComplete: 3,
   }
 };
 
@@ -70,11 +86,11 @@ export const mockDistrictLeaderboard: LeaderboardUser[] = [
     },
     {
       rank: 2, 
-      name: "Anjali Sharma",
-      avatar: "AS",
+      name: "Himanshu Goyal",
+      avatar: "HG",
       points: 2850,
       level: "Democracy Defender", 
-      badges: [badges.jagrukNagrik, badges.gramSevak],
+      badges: [badges.jagrukNagrik, badges.truthSeeker, badges.voiceOfBihar],
       activeStatements: 45,
       district: "Patna"
     },
