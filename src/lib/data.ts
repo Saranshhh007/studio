@@ -328,9 +328,166 @@ export const mockStatements: Statement[] = [
       }
     ],
     relatedStatements: [
-      "statement_002",
-      "statement_003"
+      "stmt-002",
+      "stmt-003"
     ]
+  },
+  {
+    id: "stmt-002",
+    title: "Establishment of 100 Rural Healthcare Centers",
+    titleHindi: "100 ग्रामीण स्वास्थ्य केंद्रों की स्थापना",
+    content: "To improve healthcare access, we will establish 100 new Primary Healthcare Centers (PHCs) in rural areas by June 2024. Each center will be equipped with modern medical equipment and qualified staff.",
+    contentHindi: "स्वास्थ्य सेवा तक पहुंच में सुधार के लिए, हम जून 2024 तक ग्रामीण क्षेत्रों में 100 नए प्राथमिक स्वास्थ्य केंद्र (पीएचसी) स्थापित करेंगे।",
+    official: {
+      name: "Dr. Priya Sharma",
+      nameHindi: "डॉ. प्रिया शर्मा",
+      designation: "Health Secretary",
+      designationHindi: "स्वास्थ्य सचिव",
+      ministry: "Ministry of Health & Family Welfare",
+      ministryHindi: "स्वास्थ्य और परिवार कल्याण मंत्रालय",
+      photoUrl: "https://picsum.photos/seed/priyasharma/100/100",
+      contactEmail: "secy.health@gov.in"
+    },
+    location: {
+      district: "Multiple Districts",
+      state: "Bihar",
+      constituency: "State-wide",
+      geographicScope: "Rural Bihar",
+      targetVillages: 100
+    },
+    classification: {
+      department: "Health & Family Welfare",
+      category: "Healthcare",
+      priority: "high",
+      status: "completed",
+      tags: ["healthcare", "rural", "phc", "health", "infrastructure"]
+    },
+    timeline: {
+      dateCreated: new Date("2023-08-01T00:00:00Z"),
+      dateAnnounced: new Date("2023-08-15T00:00:00Z"),
+      datePromised: new Date("2024-06-30T23:59:59Z"),
+      dateStarted: new Date("2023-09-01T00:00:00Z"),
+      dateLastUpdated: new Date("2024-06-15T00:00:00Z"),
+      dateCompleted: new Date("2024-06-15T00:00:00Z"),
+      estimatedCompletion: new Date("2024-06-30T23:59:59Z")
+    },
+    progress: {
+      percentage: 100,
+      milestones: [
+        {
+          title: "All 100 centers operational.",
+          date: new Date("2024-06-15T00:00:00Z"),
+          status: "completed",
+          description: "All centers are now fully functional and serving patients."
+        }
+      ]
+    },
+    budget: {
+      allocated: 20000000000,
+      spent: 19500000000,
+      currency: "INR",
+      budgetSource: "State Government",
+      financialYear: "2023-24"
+    },
+    impact: {
+      beneficiaries: 1000000,
+      beneficiaryType: "Citizens",
+      employmentCreated: 500,
+      targetEmployment: 500,
+      environmentalImpact: "N/A",
+      economicImpact: "Improved health outcomes leading to higher productivity."
+    },
+    publicEngagement: {
+      views: 25000,
+      comments: 340,
+      bookmarks: 500,
+      citizenRating: 4.8
+    },
+    updates: [
+      {
+        id: "update_phc_001",
+        content: "Project officially completed. All 100 PHCs are now operational.",
+        author: {
+          name: "Dr. Priya Sharma",
+          role: "official",
+          userId: "priya_sharma_official"
+        },
+        timestamp: new Date("2024-06-15T12:00:00Z"),
+        type: "status_change"
+      }
+    ]
+  },
+  {
+    id: "stmt-003",
+    title: "Digital India Expansion in Bihar",
+    titleHindi: "बिहार में डिजिटल इंडिया का विस्तार",
+    content: "We are launching a new phase of the Digital India mission to provide high-speed internet to 500 more gram panchayats by the end of this financial year.",
+    contentHindi: "हम इस वित्तीय वर्ष के अंत तक 500 और ग्राम पंचायतों को हाई-स्पीड इंटरनेट प्रदान करने के लिए डिजिटल इंडिया मिशन का एक नया चरण शुरू कर रहे हैं।",
+    official: {
+      name: "Smt. Anita Verma",
+      nameHindi: "श्रीमती अनीता वर्मा",
+      designation: "IT Minister",
+      designationHindi: "आईटी मंत्री",
+      ministry: "Ministry of Electronics and IT",
+      ministryHindi: "इलेक्ट्रॉनिक्स और आईटी मंत्रालय",
+      photoUrl: "https://picsum.photos/seed/anitaverma/100/100",
+      contactEmail: "minister.it@gov.in"
+    },
+    location: {
+      district: "Multiple Districts",
+      state: "Bihar",
+      constituency: "State-wide",
+      geographicScope: "Rural Bihar"
+    },
+    classification: {
+      department: "Electronics and IT",
+      category: "Technology",
+      priority: "medium",
+      status: "pending",
+      tags: ["digital india", "internet", "connectivity", "rural"]
+    },
+    timeline: {
+      dateCreated: new Date("2024-06-01T00:00:00Z"),
+      dateAnnounced: new Date("2024-06-05T00:00:00Z"),
+      datePromised: new Date("2025-03-31T23:59:59Z"),
+      dateStarted: null,
+      dateLastUpdated: new Date("2024-06-05T00:00:00Z"),
+      dateCompleted: null,
+      estimatedCompletion: new Date("2025-03-31T23:59:59Z")
+    },
+    progress: {
+      percentage: 0,
+      milestones: [
+        {
+          title: "Tender process to be initiated.",
+          date: new Date("2024-08-01T00:00:00Z"),
+          status: "pending",
+          description: "Tenders for fiber optic cable laying will be released soon."
+        }
+      ]
+    },
+    budget: {
+      allocated: 30000000000,
+      spent: 0,
+      currency: "INR",
+      budgetSource: "Central and State Partnership",
+      financialYear: "2024-25"
+    },
+    impact: {
+      beneficiaries: 2000000,
+      beneficiaryType: "Citizens",
+      employmentCreated: 0,
+      targetEmployment: 1000,
+      environmentalImpact: "N/A",
+      economicImpact: "Boost to digital economy and services in rural areas."
+    },
+    publicEngagement: {
+      views: 5200,
+      comments: 45,
+      bookmarks: 120,
+      citizenRating: 4.0
+    },
+    updates: []
   }
 ];
 
@@ -377,3 +534,5 @@ export const mockUser: User = {
     },
   }
 };
+
+    
