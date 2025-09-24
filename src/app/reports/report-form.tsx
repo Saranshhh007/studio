@@ -24,7 +24,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2, FileText } from "lucide-react";
-import { useToast } from "@/components/ui/use-toast";
+import { useToast } from "@/hooks/use-toast";
 import { generateReportSummaries, GenerateReportSummariesOutput } from "@/ai/flows/generate-report-summaries";
 import { mockStatements } from "@/lib/data";
 
