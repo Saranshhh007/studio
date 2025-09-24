@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { CircleUser, Menu } from 'lucide-react';
+import { CircleUser, Menu, FilePlus } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -79,6 +79,12 @@ export function Header() {
       </Sheet>
 
       <div className="flex w-full items-center justify-end gap-4 md:ml-auto md:gap-2 lg:gap-4">
+        <Button asChild>
+            <Link href="/complaint/new">
+                <FilePlus className="h-4 w-4 mr-2"/>
+                File Complaint
+            </Link>
+        </Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="secondary" size="icon" className="rounded-full">
