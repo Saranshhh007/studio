@@ -24,6 +24,10 @@ import {
 
 export default async function StatementsPage() {
   const data = mockStatements
+  const activeData = data.filter(s => s.classification.status === "in_progress");
+  const completedData = data.filter(s => s.classification.status === "completed");
+  const pendingData = data.filter(s => s.classification.status === "pending");
+  const criticalData = data.filter(s => s.classification.priority === "critical");
 
   return (
     <div className="flex flex-col gap-4">
@@ -34,6 +38,7 @@ export default async function StatementsPage() {
         <div className="flex items-center">
           <TabsList>
             <TabsTrigger value="all">All</TabsTrigger>
+            <TabsTrigger value="critical">Critical</TabsTrigger>
             <TabsTrigger value="active">Active</TabsTrigger>
             <TabsTrigger value="completed">Completed</TabsTrigger>
             <TabsTrigger value="pending" className="hidden sm:flex">
@@ -72,6 +77,18 @@ export default async function StatementsPage() {
         </div>
         <TabsContent value="all">
            <DataTable columns={columns} data={data} />
+        </TabsContent>
+         <TabsContent value="critical">
+           <DataTable columns={columns} data={criticalData} />
+        </TabsContent>
+        <TabsContent value="active">
+           <DataTable columns={columns} data={activeData} />
+        </TabsContent>
+        <TabsContent value="completed">
+           <DataTable columns={columns} data={completedData} />
+        </TabsContent>
+        <TabsContent value="pending">
+           <DataTable columns={columns} data={pendingData} />
         </TabsContent>
       </Tabs>
     </div>
