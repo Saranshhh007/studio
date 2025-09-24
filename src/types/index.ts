@@ -62,4 +62,82 @@ export interface User {
   email: string;
   role: UserRole;
   avatarUrl?: string;
+  gamification?: UserGamification;
+}
+
+// Gamification Types
+export type CivicLevel = 'Civic Rookie' | 'Active Citizen' | 'Democracy Defender' | 'Democracy Champion' | 'Transparency Guardian';
+
+export interface BadgeInfo {
+  name: string;
+  icon: string;
+  description: string;
+}
+
+export interface Achievement {
+  name: string;
+  description: string;
+  pointsEarned: number;
+  dateEarned: string;
+}
+
+export interface UserGamificationProfile {
+  name: string;
+  district: string;
+  state: string;
+  civicLevel: CivicLevel;
+  totalPoints: number;
+  currentBadges: BadgeInfo[];
+  achievements: Achievement[];
+  avatarUrl?: string;
+}
+
+export interface UserActivities {
+  statementsTracked: number;
+  commentsPosted: number;
+  evidenceUploaded: number;
+  reportsGenerated: number;
+  referralsComplete: number;
+}
+
+export interface UserGamification {
+  userId: string;
+  profile: UserGamificationProfile;
+  activities: UserActivities;
+}
+
+export interface LeaderboardUser {
+  rank: number;
+  name: string;
+  avatar: string;
+  points: number;
+  level: CivicLevel;
+  badges: BadgeInfo[];
+  activeStatements: number;
+  district: string;
+}
+
+export interface StateLeaderboardEntry {
+  district: string;
+  topCitizen: string;
+  totalPoints: number;
+  activeUsers: number;
+  statementsTracked: number;
+}
+
+export interface ChallengeTask {
+  task: string;
+  points: number;
+  completed: boolean;
+}
+
+export interface MonthlyChallenge {
+  name: string;
+  description: string;
+  duration: string;
+  tasks: ChallengeTask[];
+  rewards: {
+    completion: string;
+    topPerformer: string;
+  };
 }

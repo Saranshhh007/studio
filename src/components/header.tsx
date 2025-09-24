@@ -22,6 +22,7 @@ const navLinks = [
   { href: '/statements', label: 'Statements' },
   { href: '/analytics', label: 'Analytics' },
   { href: '/reports', label: 'Reports' },
+  { href: '/gamification', label: 'Gamification' },
 ];
 
 export function Header() {
