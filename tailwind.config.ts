@@ -8,6 +8,13 @@ export default {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
@@ -55,15 +62,21 @@ export default {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
-        sidebar: {
-          DEFAULT: 'hsl(var(--sidebar-background))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
+        brand: {
+          saffron: 'hsl(var(--saffron))',
+          white: 'hsl(var(--white))',
+          green: 'hsl(var(--green))',
+          'navy-blue': 'hsl(var(--navy-blue))',
+          'light-saffron': 'hsl(var(--light-saffron))',
+          'light-green': 'hsl(var(--light-green))',
+          cream: 'hsl(var(--cream))',
+          'deep-blue': 'hsl(var(--deep-blue))',
+        },
+        status: {
+          critical: 'hsl(var(--status-critical))',
+          'in-progress': 'hsl(var(--status-in-progress))',
+          completed: 'hsl(var(--status-completed))',
+          pending: 'hsl(var(--status-pending))',
         },
       },
       borderRadius: {
