@@ -1,4 +1,20 @@
+
+'use client';
+
+import { useMemo } from 'react';
+
 export function Logo() {
+  const spokes = useMemo(() => {
+    return [...Array(24)].map((_, i) => {
+      const angle = (i * 15 * Math.PI) / 180;
+      const x1 = 20 + 18 * Math.cos(angle);
+      const y1 = 20 + 18 * Math.sin(angle);
+      const x2 = 20 + 13 * Math.cos(angle);
+      const y2 = 20 + 13 * Math.sin(angle);
+      return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="1"/>;
+    });
+  }, []);
+
   return (
     <div className="flex items-center gap-3">
       <div className="w-9 h-9 rounded-full bg-gradient-to-b from-brand-saffron via-brand-white to-brand-green p-0.5 shadow-md">
@@ -6,14 +22,7 @@ export function Logo() {
           <svg className="w-5 h-5 text-brand-navy-blue" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2"/>
             <circle cx="20" cy="20" r="4" fill="currentColor"/>
-            {[...Array(24)].map((_, i) => {
-              const angle = (i * 15 * Math.PI) / 180;
-              const x1 = 20 + 18 * Math.cos(angle);
-              const y1 = 20 + 18 * Math.sin(angle);
-              const x2 = 20 + 13 * Math.cos(angle);
-              const y2 = 20 + 13 * Math.sin(angle);
-              return <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="currentColor" strokeWidth="1"/>;
-            })}
+            {spokes}
           </svg>
         </div>
       </div>
