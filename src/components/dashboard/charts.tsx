@@ -15,6 +15,7 @@ import { useMemo } from "react";
 
 type ChartsProps = {
   chartData: ChartData;
+  statements: any[];
 };
 
 export function DashboardCharts({ chartData }: ChartsProps) {

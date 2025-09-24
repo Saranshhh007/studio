@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,7 +9,7 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
-import { Bar, BarChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, Tooltip, LineChart, Line, CartesianGrid } from "recharts"
+import { Bar, BarChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, CartesianGrid } from "recharts"
 import type { AnalyticsData } from "@/types";
 import { useMemo } from "react";
 
@@ -27,10 +28,15 @@ export function AnalyticsCharts({ analytics }: ChartsProps) {
   }, [analytics]);
   
   const statusChartConfig = useMemo(() => {
-    return Object.entries(analytics.statusDistribution).reduce((acc, [name, data]) => {
-      acc[name.charAt(0).toUpperCase() + name.slice(1).replace('_', ' ')] = { label: name.charAt(0).toUpperCase() + name.slice(1).replace('_', ' '), color: data.color };
-      return acc;
-    }, {} as any);
+    const config: any = {};
+    for (const key in analytics.statusDistribution) {
+        const name = key.charAt(0).toUpperCase() + key.slice(1).replace('_', ' ');
+        config[name] = {
+            label: name,
+            color: analytics.statusDistribution[key].color,
+        };
+    }
+    return config;
   }, [analytics]);
 
 
@@ -79,7 +85,7 @@ export function AnalyticsCharts({ analytics }: ChartsProps) {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis type="number" />
                 <YAxis dataKey="department" type="category" width={150} tick={{fontSize: 12}}/>
-                <Tooltip />
+                <ChartTooltip content={<ChartTooltipContent />} />
                 <ChartLegend />
                 <Bar dataKey="completionRate" fill="hsl(var(--status-completed))" name="Completion Rate (%)" radius={[0, 4, 4, 0]} />
             </BarChart>
@@ -93,16 +99,16 @@ export function AnalyticsCharts({ analytics }: ChartsProps) {
         </CardHeader>
         <CardContent>
            <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={analytics.trendsOverTime}>
+            <BarChart data={analytics.trendsOverTime}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip />
+                <ChartTooltip content={<ChartTooltipContent />} />
                 <ChartLegend />
-                <Line type="monotone" dataKey="statementsAdded" stroke="hsl(var(--primary))" name="Statements Added"/>
-                <Line type="monotone" dataKey="completed" stroke="hsl(var(--status-completed))" name="Statements Completed"/>
-                <Line type="monotone" dataKey="userGrowth" stroke="hsl(var(--accent))" name="New Users" />
-            </LineChart>
+                <Bar dataKey="statementsAdded" fill="hsl(var(--primary))" name="Statements Added" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="completed" fill="hsl(var(--status-completed))" name="Statements Completed" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="userGrowth" fill="hsl(var(--accent))" name="New Users" radius={[4, 4, 0, 0]} />
+            </BarChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>
