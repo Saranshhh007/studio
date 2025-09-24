@@ -1,4 +1,102 @@
-import type { Statement, User, Official } from '@/types';
+import type { Statement, User, Official, DashboardData } from '@/types';
+
+export const dashboardData: DashboardData = {
+  userId: "himanshu_goyal_001",
+  dashboardStats: {
+    totalStatementsTracked: 5,
+    completedThisMonth: 1, // updated from 0 to show some activity
+    criticalPriorityPending: 1, // updated to match priorityStatements
+    averageCompletionTime: 375, // days
+    lastUpdated: "2025-09-24T06:30:00Z"
+  },
+  
+  priorityStatements: [
+    {
+      id: "stmt-005",
+      title: "Solar Energy Program", 
+      ministry: "Ministry of New & Renewable Energy",
+      priority: "critical",
+      status: "in_progress",
+      progress: 60,
+      lastUpdate: "2024-07-01T11:00:00Z",
+      official: "Shri Vikash Singh"
+    }
+  ],
+  
+  recentActivity: [
+    {
+      id: "activity_001",
+      type: "statement_update",
+      actor: {
+        name: "Shri Vikash Singh",
+        role: "official",
+        avatar: "https://picsum.photos/seed/105/100/100"
+      },
+      action: "made an update on",
+      target: "Solar Energy Program", 
+      content: "600 villages covered. Work is progressing at a good pace.",
+      timestamp: "2024-07-01T11:00:00Z",
+      badge: {
+        text: "Official",
+        color: "orange"
+      }
+    },
+    {
+      id: "activity_002", 
+      type: "citizen_comment",
+      actor: {
+        name: "Priya Sharma",
+        role: "citizen",
+        avatar: "https://picsum.photos/seed/priya/100/100"
+      },
+      action: "commented on",
+      target: "Rural Healthcare Centers",
+      content: "Great progress! When will this reach our village?",
+      timestamp: "2024-06-28T14:30:00Z",
+      badge: {
+        text: "Citizen",
+        color: "blue"
+      }
+    },
+    {
+      id: "activity_003",
+      type: "evidence_upload", 
+      actor: {
+        name: "Himanshu Goyal",
+        role: "citizen",
+        avatar: "https://picsum.photos/seed/himanshu/100/100"
+      },
+      action: "uploaded evidence for",
+      target: "Digital India Expansion",
+      content: "Photo of new fiber cable installation in my area",
+      timestamp: "2024-06-25T09:15:00Z",
+      badge: {
+        text: "Evidence",
+        color: "green"
+      }
+    }
+  ],
+  
+  chartData: {
+    statementsByCategory: [
+      { category: "Energy", count: 1, color: "hsl(var(--status-critical))" },
+      { category: "Health", count: 1, color: "hsl(var(--status-in-progress))" },
+      { category: "Environment", count: 1, color: "hsl(var(--status-completed))" },
+      { category: "Education", count: 1, color: "hsl(var(--status-pending))" },
+      { category: "Technology", count: 1, color: "hsl(var(--primary))" }
+    ],
+    
+    completionTrends: [
+      { month: "Jan", completed: 0, total: 1 },
+      { month: "Feb", completed: 0, total: 1 },
+      { month: "Mar", completed: 1, total: 2 },
+      { month: "Apr", completed: 1, total: 3 },
+      { month: "May", completed: 1, total: 4 },
+      { month: "Jun", completed: 1, total: 5 }
+    ]
+  }
+};
+
 
 const officials: Record<string, Official> = {
   rajeshKumar: {
@@ -146,8 +244,17 @@ export const mockStatements: Statement[] = [
 export const mockUser: User = {
   uid: 'himanshu_goyal_001',
   name: 'Himanshu Goyal',
+  nameHindi: 'हिमांशु गोयल',
   email: 'himanshu.goyal@gmail.com',
+  phone: '+91-9876543210',
+  district: 'Patna',
+  state: 'Bihar',
+  constituency: 'Patna Lok Sabha',
+  address: 'Boring Road, Patna, Bihar - 800001',
   role: 'citizen',
+  joinDate: '2024-01-15T00:00:00Z',
+  lastLogin: '2025-09-24T06:30:00Z',
+  isVerified: true,
   avatarUrl: 'https://picsum.photos/seed/himanshu/100/100',
   gamification: {
     userId: 'himanshu_goyal_001',
@@ -158,9 +265,9 @@ export const mockUser: User = {
       civicLevel: 'Democracy Defender',
       totalPoints: 2850,
       currentBadges: [
-        { name: 'Jagruk Nagrik', icon: '👁️', description: '' },
-        { name: 'Truth Seeker', icon: '🔍', description: '' },
-        { name: 'Voice of Bihar', icon: '📢', description: '' },
+        { name: 'Jagruk Nagrik', icon: '👁️', description: 'Aware Citizen' },
+        { name: 'Truth Seeker', icon: '🔍', description: 'Fact-checker' },
+        { name: 'Voice of Bihar', icon: '📢', description: 'Active Commenter' },
       ],
       achievements: [
         { name: 'First Comment', description: 'Made your first comment', pointsEarned: 50, dateEarned: '2024-01-20' },

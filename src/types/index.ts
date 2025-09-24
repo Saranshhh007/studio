@@ -63,6 +63,15 @@ export interface User {
   role: UserRole;
   avatarUrl?: string;
   gamification?: UserGamification;
+  nameHindi?: string;
+  phone?: string;
+  district?: string;
+  state?: string;
+  constituency?: string;
+  address?: string;
+  joinDate?: string;
+  lastLogin?: string;
+  isVerified?: boolean;
 }
 
 // Gamification Types
@@ -140,4 +149,63 @@ export interface MonthlyChallenge {
     completion: string;
     topPerformer: string;
   };
+}
+
+// New Dashboard Data Types
+export interface DashboardStats {
+  totalStatementsTracked: number;
+  completedThisMonth: number;
+  criticalPriorityPending: number;
+  averageCompletionTime: number;
+  lastUpdated: string;
+}
+
+export interface PriorityStatement {
+  id: string;
+  title: string;
+  ministry: string;
+  priority: Priority;
+  status: Status;
+  progress: number;
+  lastUpdate: string;
+  official: string;
+}
+
+export interface RecentActivityItem {
+  id: string;
+  type: string;
+  actor: {
+    name: string;
+    role: UserRole;
+    avatar: string;
+  };
+  action: string;
+  target: string;
+  content: string;
+  timestamp: string;
+  badge: {
+    text: string;
+    color: string;
+  };
+}
+
+export interface ChartData {
+  statementsByCategory: {
+    category: string;
+    count: number;
+    color: string;
+  }[];
+  completionTrends: {
+    month: string;
+    completed: number;
+    total: number;
+  }[];
+}
+
+export interface DashboardData {
+  userId: string;
+  dashboardStats: DashboardStats;
+  priorityStatements: PriorityStatement[];
+  recentActivity: RecentActivityItem[];
+  chartData: ChartData;
 }

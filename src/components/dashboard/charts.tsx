@@ -9,31 +9,48 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
-import { Bar, BarChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts"
-import type { Statement } from "@/types";
+import { Bar, BarChart, Pie, PieChart, ResponsiveContainer, XAxis, YAxis, Tooltip, LineChart, Line, CartesianGrid } from "recharts"
+import type { Statement, ChartData } from "@/types";
 import { useMemo } from "react";
 
 type ChartsProps = {
   statements: Statement[];
+  chartData?: ChartData;
 };
 
-export function DashboardCharts({ statements }: ChartsProps) {
+export function DashboardCharts({ statements, chartData }: ChartsProps) {
 
   const statusDistribution = useMemo(() => {
+    if (chartData) {
+        return chartData.statementsByCategory.map(item => ({
+            name: item.category,
+            value: item.count,
+            fill: item.color,
+        }));
+    }
     const counts = statements.reduce((acc, s) => {
       acc[s.status] = (acc[s.status] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
     return Object.entries(counts).map(([name, value]) => ({ name, value, fill: `var(--color-${name})` }));
-  }, [statements]);
+  }, [statements, chartData]);
   
-  const statusChartConfig = {
-    completed: { label: "Completed", color: "hsl(var(--status-completed))" },
-    in_progress: { label: "In Progress", color: "hsl(var(--status-in-progress))" },
-    pending: { label: "Pending", color: "hsl(var(--status-pending))" },
-    cancelled: { label: "Cancelled", color: "hsl(var(--muted))" },
-  }
+  const statusChartConfig = useMemo(() => {
+      if (chartData) {
+          return chartData.statementsByCategory.reduce((acc, item) => {
+              acc[item.category] = { label: item.category, color: item.color };
+              return acc;
+          }, {} as any);
+      }
+      return {
+        completed: { label: "Completed", color: "hsl(var(--status-completed))" },
+        in_progress: { label: "In Progress", color: "hsl(var(--status-in-progress))" },
+        pending: { label: "Pending", color: "hsl(var(--status-pending))" },
+        cancelled: { label: "Cancelled", color: "hsl(var(--muted))" },
+      }
+  }, [chartData]);
+
 
   const ministryPerformance = useMemo(() => {
     const ministryData = statements.reduce((acc, s) => {
@@ -59,8 +76,8 @@ export function DashboardCharts({ statements }: ChartsProps) {
     <>
       <Card className="col-span-1 lg:col-span-2">
         <CardHeader>
-          <CardTitle>Statement Distribution</CardTitle>
-          <CardDescription>Overview of all statement statuses.</CardDescription>
+          <CardTitle>Statements by Category</CardTitle>
+          <CardDescription>Overview of all statement categories.</CardDescription>
         </CardHeader>
         <CardContent>
           <ChartContainer config={statusChartConfig} className="mx-auto aspect-square max-h-[300px]">
@@ -87,53 +104,20 @@ export function DashboardCharts({ statements }: ChartsProps) {
       </Card>
       <Card className="col-span-1 lg:col-span-3">
         <CardHeader>
-          <CardTitle>Ministry Performance</CardTitle>
-          <CardDescription>Completion rate by ministry.</CardDescription>
+          <CardTitle>Completion Trends</CardTitle>
+          <CardDescription>Monthly statement completion rate.</CardDescription>
         </CardHeader>
         <CardContent>
            <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={ministryPerformance} layout="vertical" margin={{ left: 100 }}>
-              <XAxis type="number" hide />
-              <YAxis 
-                dataKey="ministry" 
-                type="category" 
-                tickLine={false} 
-                axisLine={false} 
-                tick={{ fontSize: 12, fill: 'hsl(var(--foreground))' }}
-                width={200}
-                />
-              <Tooltip
-                cursor={{ fill: 'hsl(var(--secondary))' }}
-                content={({ active, payload }) => {
-                  if (active && payload && payload.length) {
-                    return (
-                      <div className="rounded-lg border bg-background p-2 shadow-sm">
-                        <div className="grid grid-cols-2 gap-2">
-                          <div className="flex flex-col">
-                            <span className="text-[0.70rem] uppercase text-muted-foreground">
-                              Ministry
-                            </span>
-                            <span className="font-bold text-foreground">
-                              {payload[0].payload.ministry}
-                            </span>
-                          </div>
-                          <div className="flex flex-col">
-                            <span className="text-[0.70rem] uppercase text-muted-foreground">
-                              Completion
-                            </span>
-                            <span className="font-bold">
-                              {payload[0].value}%
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  }
-                  return null
-                }}
-              />
-              <Bar dataKey="performance" layout="vertical" radius={4} fill="hsl(var(--status-completed))" />
-            </BarChart>
+            <LineChart data={chartData?.completionTrends}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <ChartLegend />
+                <Line type="monotone" dataKey="completed" stroke="hsl(var(--status-completed))" activeDot={{ r: 8 }} name="Completed"/>
+                <Line type="monotone" dataKey="total" stroke="hsl(var(--primary))" name="Total"/>
+            </LineChart>
           </ResponsiveContainer>
         </CardContent>
       </Card>

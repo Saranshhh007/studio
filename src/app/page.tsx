@@ -1,11 +1,10 @@
-import { mockStatements, mockUser } from '@/lib/data';
+import { dashboardData, mockUser } from '@/lib/data';
 import { StatsCards } from '@/components/dashboard/stats-cards';
 import { PriorityQueue } from '@/components/dashboard/priority-queue';
 import { RecentActivity } from '@/components/dashboard/recent-activity';
 import { DashboardCharts } from '@/components/dashboard/charts';
 
 export default function DashboardPage() {
-  const statements = mockStatements;
   const user = mockUser;
 
   // Get current time in Hindi
@@ -36,13 +35,13 @@ export default function DashboardPage() {
             <p className="text-sm text-muted-foreground">{dateInHindi}</p>
         </div>
       </div>
-      <StatsCards statements={statements} />
+      <StatsCards stats={dashboardData.dashboardStats} />
       <div className="grid gap-8 lg:grid-cols-5">
-        <PriorityQueue statements={statements} />
-        <RecentActivity statements={statements} />
+        <PriorityQueue statements={dashboardData.priorityStatements} />
+        <RecentActivity activities={dashboardData.recentActivity} />
       </div>
        <div className="grid gap-8 lg:grid-cols-5">
-        <DashboardCharts statements={statements} />
+        <DashboardCharts chartData={dashboardData.chartData} statements={[]}/>
       </div>
     </div>
   );

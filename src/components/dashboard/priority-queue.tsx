@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import type { Statement, Priority } from "@/types";
+import type { PriorityStatement, Priority } from "@/types";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 
@@ -13,15 +13,8 @@ const priorityBorderColor: Record<Priority, string> = {
   low: "border-gray-400",
 };
 
-export function PriorityQueue({ statements }: { statements: Statement[] }) {
-  const priorityStatements = statements
-    .filter(s => (s.priority === 'critical' || s.priority === 'high') && s.status !== 'completed')
-    .sort((a, b) => {
-      if (a.priority === 'critical' && b.priority !== 'critical') return -1;
-      if (a.priority !== 'critical' && b.priority === 'critical') return 1;
-      return new Date(a.dateCreated).getTime() - new Date(b.dateCreated).getTime();
-    })
-    .slice(0, 5);
+export function PriorityQueue({ statements }: { statements: PriorityStatement[] }) {
+  const priorityStatements = statements;
 
   return (
     <Card className="col-span-1 lg:col-span-2">
@@ -41,8 +34,8 @@ export function PriorityQueue({ statements }: { statements: Statement[] }) {
         {priorityStatements.map(statement => (
           <div key={statement.id} className={cn("flex items-center gap-4 p-4 rounded-lg border bg-card transition-shadow hover:shadow-md", priorityBorderColor[statement.priority])}>
             <Image 
-              src={statement.official.photoUrl} 
-              alt={`Photo of ${statement.official.name}`} 
+              src={`https://picsum.photos/seed/${statement.official.replace(/\s/g, '')}/100/100`} 
+              alt={`Photo of ${statement.official}`} 
               width={40} 
               height={40} 
               className="rounded-full"
@@ -53,7 +46,7 @@ export function PriorityQueue({ statements }: { statements: Statement[] }) {
                 {statement.title}
               </Link>
               <div>
-                <p className="text-sm text-muted-foreground">{statement.official.ministry}</p>
+                <p className="text-sm text-muted-foreground">{statement.ministry}</p>
               </div>
             </div>
             <div className="text-sm font-medium capitalize text-right">
