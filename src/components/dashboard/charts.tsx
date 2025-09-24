@@ -1,3 +1,4 @@
+
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -131,7 +132,7 @@ export function DashboardCharts({ statements }: ChartsProps) {
                   return null
                 }}
               />
-              <Bar dataKey="performance" layout="vertical" radius={4} fill="hsl(var(--primary))" />
+              <Bar dataKey="performance" layout="vertical" radius={4} fill="hsl(var(--status-completed))" />
             </BarChart>
           </ResponsiveContainer>
         </CardContent>
