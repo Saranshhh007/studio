@@ -97,7 +97,7 @@ export const analyticsData: AnalyticsData = {
 export const dashboardData: DashboardData = {
   userId: "himanshu_goyal_001",
   dashboardStats: {
-    totalStatementsTracked: 5,
+    totalStatementsTracked: 3,
     completedThisMonth: 1,
     criticalPriorityItems: 1,
     averageCompletionTime: 128,
@@ -534,6 +534,8 @@ export const mockUser: User = {
     },
   }
 };
+
+    
 
     
 
