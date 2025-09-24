@@ -10,7 +10,7 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
-export const CategorizeComplaintInputSchema = z.object({
+const CategorizeComplaintInputSchema = z.object({
   photoDataUri: z
     .string()
     .describe(
@@ -20,7 +20,7 @@ export const CategorizeComplaintInputSchema = z.object({
 });
 export type CategorizeComplaintInput = z.infer<typeof CategorizeComplaintInputSchema>;
 
-export const CategorizeComplaintOutputSchema = z.object({
+const CategorizeComplaintOutputSchema = z.object({
   title: z.string().describe('A short, descriptive title for the complaint.'),
   category: z.string().describe('The primary category of the complaint (e.g., Waste Management, Road Maintenance, Water Supply).'),
   department: z.string().describe('The suggested government department to handle the complaint (e.g., Public Works Department, Municipal Corporation).'),
