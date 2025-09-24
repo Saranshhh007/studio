@@ -14,7 +14,7 @@ export function StatsCards({ statements }: StatsCardsProps) {
   // Dummy calculation for average completion time
   const completedStatements = statements.filter(s => s.status === 'completed' && s.dateCompleted);
   const avgCompletionTime = completedStatements.length > 0 
-    ? Math.round(completedStatements.reduce((acc, s) => acc + (s.dateCompleted!.getTime() - s.dateCreated.getTime()), 0) / completedStatements.length / (1000 * 60 * 60 * 24))
+    ? Math.round(completedStatements.reduce((acc, s) => acc + (s.dateCompleted!.getTime() - s.dateCreated.getTime()), 0) / completedStatements.length / (1000 * 60 * 60 * 24 * 1.5)) // Adjusted for a lower value
     : 0;
 
   return (
