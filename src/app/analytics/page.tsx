@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { mockStatements } from "@/lib/data";
-import { DashboardCharts } from "@/components/dashboard/charts";
+import { analyticsData } from "@/lib/data";
+import { AnalyticsCharts } from "@/components/analytics/charts";
 import {
   File,
   ListFilter,
@@ -15,7 +15,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import Image from "next/image";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Progress } from "@/components/ui/progress";
 
 export default function AnalyticsPage() {
   return (
@@ -54,19 +55,42 @@ export default function AnalyticsPage() {
       </div>
 
       <div className="grid gap-8 lg:grid-cols-5">
-        <DashboardCharts statements={mockStatements} />
+        <AnalyticsCharts analytics={analyticsData} />
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Geographic Heatmap</CardTitle>
+          <CardTitle>Geographic Data</CardTitle>
           <CardDescription>State-wise completion data across India.</CardDescription>
         </CardHeader>
-        <CardContent className="flex justify-center items-center bg-muted/50 rounded-lg">
-          <div className="p-8 text-center">
-            <p className="text-muted-foreground mb-4">India map visualization coming soon.</p>
-            <Image src="https://picsum.photos/seed/india-map/600/400" alt="Placeholder for India map" width={600} height={400} className="rounded-lg shadow-md" data-ai-hint="India map" />
-          </div>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>District</TableHead>
+                <TableHead>Total Statements</TableHead>
+                <TableHead>Completion Rate</TableHead>
+                <TableHead>Active Users</TableHead>
+                <TableHead>Engagement</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {analyticsData.districtWiseData.map((district) => (
+                <TableRow key={district.district}>
+                  <TableCell className="font-medium">{district.district}</TableCell>
+                  <TableCell>{district.totalStatements}</TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <span>{district.completionRate}%</span>
+                      <Progress value={district.completionRate} className="w-24 h-2"/>
+                    </div>
+                  </TableCell>
+                  <TableCell>{district.activeUsers}</TableCell>
+                  <TableCell>{district.engagement}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </CardContent>
       </Card>
     </div>

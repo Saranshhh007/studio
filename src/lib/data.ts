@@ -1,4 +1,98 @@
-import type { Statement, User, Official, DashboardData } from '@/types';
+import type { Statement, User, Official, DashboardData, AnalyticsData } from '@/types';
+
+export const analyticsData: AnalyticsData = {
+  period: "september_2025",
+  state: "Bihar",
+  
+  priorityDistribution: {
+    critical: { count: 8, percentage: 18, color: "hsl(var(--status-critical))" },
+    high: { count: 15, percentage: 33, color: "hsl(var(--status-in-progress))" },
+    medium: { count: 18, percentage: 40, color: "hsl(var(--primary))" },
+    low: { count: 4, percentage: 9, color: "hsl(var(--muted))" }
+  },
+  
+  statusDistribution: {
+    pending: { count: 12, percentage: 27, color: "hsl(var(--status-pending))" },
+    in_progress: { count: 25, percentage: 56, color: "hsl(var(--status-in-progress))" },
+    completed: { count: 6, percentage: 13, color: "hsl(var(--status-completed))" },
+    cancelled: { count: 2, percentage: 4, color: "hsl(var(--muted))" }
+  },
+  
+  departmentPerformance: [
+    {
+      department: "Ministry of Health",
+      totalStatements: 12,
+      completed: 8,
+      completionRate: 67,
+      averageTime: 180,
+      rating: 4.2
+    },
+    {
+      department: "Ministry of Education", 
+      totalStatements: 10,
+      completed: 5,
+      completionRate: 50,
+      averageTime: 240,
+      rating: 3.8
+    },
+    {
+      department: "Ministry of New & Renewable Energy",
+      totalStatements: 6,
+      completed: 2,
+      completionRate: 33,
+      averageTime: 365,
+      rating: 4.0
+    }
+  ],
+  
+  districtWiseData: [
+    {
+      district: "Patna",
+      totalStatements: 25,
+      completed: 8,
+      completionRate: 32,
+      activeUsers: 2847,
+      engagement: 4.1
+    },
+    {
+      district: "Muzaffarpur", 
+      totalStatements: 18,
+      completed: 6,
+      completionRate: 33,
+      activeUsers: 1934,
+      engagement: 3.9
+    },
+    {
+      district: "Darbhanga",
+      totalStatements: 12,
+      completed: 5,
+      completionRate: 42,
+      activeUsers: 1456,
+      engagement: 4.3
+    }
+  ],
+  
+  trendsOverTime: [
+    {
+      month: "January 2024",
+      statementsAdded: 15,
+      completed: 5,
+      userGrowth: 234
+    },
+    {
+      month: "February 2024", 
+      statementsAdded: 18,
+      completed: 8,
+      userGrowth: 456
+    },
+    {
+      month: "March 2024",
+      statementsAdded: 22,
+      completed: 12,
+      userGrowth: 678
+    }
+  ]
+};
 
 export const dashboardData: DashboardData = {
   userId: "himanshu_goyal_001",

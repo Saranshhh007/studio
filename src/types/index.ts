@@ -209,3 +209,45 @@ export interface DashboardData {
   recentActivity: RecentActivityItem[];
   chartData: ChartData;
 }
+
+// Analytics Page Data Types
+export interface Distribution {
+  count: number;
+  percentage: number;
+  color: string;
+}
+
+export interface DepartmentPerformance {
+  department: string;
+  totalStatements: number;
+  completed: number;
+  completionRate: number;
+  averageTime: number;
+  rating: number;
+}
+
+export interface DistrictData {
+  district: string;
+  totalStatements: number;
+  completed: number;
+  completionRate: number;
+  activeUsers: number;
+  engagement: number;
+}
+
+export interface Trend {
+  month: string;
+  statementsAdded: number;
+  completed: number;
+  userGrowth: number;
+}
+
+export interface AnalyticsData {
+  period: string;
+  state: string;
+  priorityDistribution: Record<string, Distribution>;
+  statusDistribution: Record<string, Distribution>;
+  departmentPerformance: DepartmentPerformance[];
+  districtWiseData: DistrictData[];
+  trendsOverTime: Trend[];
+}
