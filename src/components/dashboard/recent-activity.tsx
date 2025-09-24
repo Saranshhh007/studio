@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import type { RecentActivityItem, UserRole } from "@/types";
@@ -18,8 +21,19 @@ const roleIcon: Record<UserRole, React.ReactNode> = {
   citizen: <UserIcon className="h-3 w-3" />,
 };
 
+type FormattedActivity = RecentActivityItem & { formattedTimestamp: string };
+
 export function RecentActivity({ activities }: { activities: RecentActivityItem[] }) {
-  const recentUpdates = activities;
+  const [formattedActivities, setFormattedActivities] = useState<FormattedActivity[]>([]);
+
+  useEffect(() => {
+    setFormattedActivities(
+      activities.map(update => ({
+        ...update,
+        formattedTimestamp: new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(update.timestamp)),
+      }))
+    );
+  }, [activities]);
 
   return (
     <Card className="col-span-1 lg:col-span-3">
@@ -29,7 +43,7 @@ export function RecentActivity({ activities }: { activities: RecentActivityItem[
       </CardHeader>
       <CardContent>
         <div className="space-y-6">
-          {recentUpdates.map((update) => (
+          {formattedActivities.map((update) => (
             <div key={update.id} className="flex gap-4">
               <Avatar className="h-9 w-9">
                 <AvatarImage src={update.actor.avatar} alt="Avatar" data-ai-hint="person avatar" />
@@ -46,7 +60,7 @@ export function RecentActivity({ activities }: { activities: RecentActivityItem[
                         {update.actor.role}
                     </span>
                     <time className="text-xs text-muted-foreground">
-                        {new Intl.DateTimeFormat('en-IN', { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(update.timestamp))}
+                        {update.formattedTimestamp}
                     </time>
                 </div>
               </div>
