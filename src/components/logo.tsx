@@ -1,9 +1,15 @@
 
 'use client';
 
-import { useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 
 export function Logo() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const spokes = useMemo(() => {
     return [...Array(24)].map((_, i) => {
       const angle = (i * 15 * Math.PI) / 180;
@@ -22,7 +28,7 @@ export function Logo() {
           <svg className="w-5 h-5 text-brand-navy-blue" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="2"/>
             <circle cx="20" cy="20" r="4" fill="currentColor"/>
-            {spokes}
+            {isMounted && spokes}
           </svg>
         </div>
       </div>
