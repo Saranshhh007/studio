@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import { dashboardData, mockUser } from '@/lib/data';
 import { StatsCards } from '@/components/dashboard/stats-cards';
 import { PriorityQueue } from '@/components/dashboard/priority-queue';
@@ -6,18 +9,22 @@ import { DashboardCharts } from '@/components/dashboard/charts';
 
 export default function DashboardPage() {
   const user = mockUser;
+  const [dateInHindi, setDateInHindi] = useState('');
+  const [dateInEnglish, setDateInEnglish] = useState('');
 
-  // Get current time in Hindi
-  const now = new Date();
-  const dateInHindi = new Intl.DateTimeFormat('hi-IN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    weekday: 'long',
-  }).format(now);
-  const dateInEnglish = new Intl.DateTimeFormat('en-IN', {
-    dateStyle: 'full',
-  }).format(now);
+  useEffect(() => {
+    const now = new Date();
+    setDateInHindi(new Intl.DateTimeFormat('hi-IN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long',
+    }).format(now));
+    setDateInEnglish(new Intl.DateTimeFormat('en-IN', {
+      dateStyle: 'full',
+    }).format(now));
+  }, []);
+
 
   return (
     <div className="flex-1 space-y-8">
@@ -41,7 +48,7 @@ export default function DashboardPage() {
         <RecentActivity activities={dashboardData.recentActivity} />
       </div>
        <div className="grid gap-8 lg:grid-cols-5">
-        <DashboardCharts chartData={dashboardData.chartData} statements={[]}/>
+        <DashboardCharts chartData={dashboardData.chartData} statements={[]} />
       </div>
     </div>
   );
