@@ -9,7 +9,7 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart"
-import { Pie, PieChart, ResponsiveContainer, Tooltip, LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Pie, PieChart, ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis } from "recharts"
 import type { ChartData } from "@/types";
 import { useMemo } from "react";
 
@@ -19,7 +19,7 @@ type ChartsProps = {
 
 export function DashboardCharts({ chartData }: ChartsProps) {
 
-  const statusDistribution = useMemo(() => {
+  const categoryDistribution = useMemo(() => {
     return chartData.statementsByCategory.map(item => ({
       name: item.category,
       value: item.count,
@@ -27,7 +27,7 @@ export function DashboardCharts({ chartData }: ChartsProps) {
     }));
   }, [chartData]);
   
-  const statusChartConfig = useMemo(() => {
+  const categoryChartConfig = useMemo(() => {
     return chartData.statementsByCategory.reduce((acc, item) => {
       acc[item.category] = { label: item.category, color: item.color };
       return acc;
@@ -43,14 +43,14 @@ export function DashboardCharts({ chartData }: ChartsProps) {
           <CardDescription>Overview of all statement categories.</CardDescription>
         </CardHeader>
         <CardContent>
-          <ChartContainer config={statusChartConfig} className="mx-auto aspect-square max-h-[300px]">
+          <ChartContainer config={categoryChartConfig} className="mx-auto aspect-square max-h-[300px]">
             <PieChart>
               <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent hideLabel />}
               />
               <Pie
-                data={statusDistribution}
+                data={categoryDistribution}
                 dataKey="value"
                 nameKey="name"
                 innerRadius={60}
@@ -76,7 +76,7 @@ export function DashboardCharts({ chartData }: ChartsProps) {
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip />
+                <ChartTooltip content={<ChartTooltipContent />} />
                 <ChartLegend />
                 <Line type="monotone" dataKey="completed" stroke="hsl(var(--status-completed))" activeDot={{ r: 8 }} name="Completed"/>
                 <Line type="monotone" dataKey="total" stroke="hsl(var(--primary))" name="Total"/>
